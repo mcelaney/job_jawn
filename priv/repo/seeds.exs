@@ -20,11 +20,11 @@ alias JobJawn.Listing.{
   Skill,
   Title}
 
-disciplines = :test |> Discipline.fixtures_data() |> Listing.fetch_fixtures(Discipline)
-industries = :test |> Industry.fixtures_data() |> Listing.fetch_fixtures(Industry)
-skills = :test |> Skill.fixtures_data() |> Listing.fetch_fixtures(Skill)
-employment_types = :test |> EmploymentType.fixtures_data() |> Listing.fetch_fixtures(EmploymentType)
-titles = :test |> Title.fixtures_data(disciplines) |> Listing.fetch_fixtures(Title)
-companies = :test |> Company.fixtures_data(industries) |> Listing.fetch_fixtures(Company)
-addresses = :test |> Address.fixtures_data(companies) |> Listing.fetch_fixtures(Address)
-:test |> Job.fixtures_data({companies, employment_types, titles, addresses, skills}) |> Job.fetch_fixtures()
+disciplines = :seed |> Discipline.fixtures_data() |> Listing.fetch_fixtures(Discipline)
+industries = :seed |> Industry.fixtures_data() |> Listing.fetch_fixtures(Industry)
+skills = :seed |> Skill.fixtures_data() |> Listing.fetch_fixtures(Skill)
+employment_types = :seed |> EmploymentType.fixtures_data() |> Listing.fetch_fixtures(EmploymentType)
+titles = :seed |> Title.fixtures_data(disciplines) |> Listing.fetch_fixtures(Title)
+companies = :seed |> Company.fixtures_data(industries) |> Listing.fetch_fixtures(Company)
+addresses = :seed |> Address.fixtures_data(companies) |> Listing.fetch_fixtures(Address)
+:seed |> Job.fixtures_data({companies, employment_types, titles, addresses, skills}) |> Job.fetch_fixtures()
