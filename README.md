@@ -20,6 +20,8 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * Source: https://github.com/phoenixframework/phoenix
 
 ## Initial mix tasks that created this project
+
+```
 mix credo gen.config
 mix phx.gen.schema Listing.Industry industries name:string slug:string
 mix phx.gen.schema Listing.Company companies name:string slug:string homepage:text jobs_page:text industry_id:references:industries
@@ -29,3 +31,4 @@ mix phx.gen.schema Listing.EmploymentType employment_types name:string slug:stri
 mix phx.gen.schema Listing.Title titles name:string slug:string discipline_id:references:disciplines
 mix phx.gen.schema Listing.Skill skills name:string slug:string
 mix phx.gen.schema Listing.Job jobs name:string url:text company_id:references:companies employment_type_id:references:employment_types title_id:references:titles address_id:references:addresses
+```
