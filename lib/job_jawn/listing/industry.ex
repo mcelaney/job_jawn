@@ -9,6 +9,8 @@ defmodule JobJawn.Listing.Industry do
     field :name, :string
     field :slug, Symbol
 
+    has_many :companies, JobJawn.Listing.Company
+
     timestamps()
   end
 

@@ -15,7 +15,7 @@ defmodule JobJawn.Listing.Title do
   end
 
   def fixtures_data(:test, disciplines) do
-    [{:visual, %{name: "Visual Designer",
+    [{:visual_designer, %{name: "Visual Designer",
                  slug: "visual_designer",
                  discipline_id: disciplines[:design].id}},
      {:copywriter, %{name: "Copywriter",
@@ -30,7 +30,7 @@ defmodule JobJawn.Listing.Title do
      {:video, %{name: "Video Producer",
               slug: "video",
               discipline_id: disciplines[:media].id}},
-     {:photo, %{name: "Photographer",
+     {:photographer, %{name: "Photographer",
               slug: "photographer",
               discipline_id: disciplines[:media].id}},
      {:analytics, %{name: "Analytics",
@@ -48,7 +48,7 @@ defmodule JobJawn.Listing.Title do
   end
 
   def fixtures_data(:seed, disciplines) do
-    [{:visual, %{name: "Visual Designer",
+    [{:visual_designer, %{name: "Visual Designer",
                  slug: "visual_designer",
                  discipline_id: disciplines[:design].id}},
      {:copywriter, %{name: "Copywriter",
@@ -63,7 +63,7 @@ defmodule JobJawn.Listing.Title do
      {:video, %{name: "Video Producer",
               slug: "video",
               discipline_id: disciplines[:media].id}},
-     {:photo, %{name: "Photographer",
+     {:photographer, %{name: "Photographer",
               slug: "photographer",
               discipline_id: disciplines[:media].id}},
      {:analytics, %{name: "Analytics",

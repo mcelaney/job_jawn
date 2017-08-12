@@ -11,6 +11,10 @@ defmodule JobJawn.Listing.Job do
   alias JobJawn.Listing.Title
   alias JobJawn.Listing.Address
 
+  @type t :: %__MODULE__{}
+  @type job_grouping :: :discipline | :title | :industry | :company
+  @type grouped_jobs :: %{job_grouping => list(t)}
+
   schema "jobs" do
     field :name, :string
     field :url, :string
@@ -37,15 +41,15 @@ defmodule JobJawn.Listing.Job do
     [{%{
         name: "GRAPHIC DESIGNER",
         url: "http://1trickpony.com/jobs/graphic-designer",
-        company_id: companies[:one_trick].id,
+        company_id: companies[:one_trick_pony].id,
         employment_type_id: employment_types[:full_time].id,
-        title_id: titles[:visual].id,
+        title_id: titles[:visual_designer].id,
         address_id: addresses[:one_trick_hammonton].id
     }, []},
     {%{
         name: "ACCOUNT COORDINATOR",
         url: "http://1trickpony.com/jbs/account-coordinator",
-        company_id: companies[:one_trick].id,
+        company_id: companies[:one_trick_pony].id,
         employment_type_id: employment_types[:full_time].id,
         title_id: titles[:crm].id,
         address_id: addresses[:one_trick_hammonton].id
@@ -53,7 +57,7 @@ defmodule JobJawn.Listing.Job do
     {%{
         name: "COPYWRITER",
         url: "http://1trickpony.com/jobs/copywriter",
-        company_id: companies[:one_trick].id,
+        company_id: companies[:one_trick_pony].id,
         employment_type_id: employment_types[:full_time].id,
         title_id: titles[:copywriter].id,
         address_id: addresses[:one_trick_hammonton].id
@@ -61,7 +65,7 @@ defmodule JobJawn.Listing.Job do
     {%{
         name: "SR. COPYWRITER / CONCEPT LEAD",
         url: "http://1trickpony.com/jobs/sr-copywriter-concept-lead",
-        company_id: companies[:one_trick].id,
+        company_id: companies[:one_trick_pony].id,
         employment_type_id: employment_types[:full_time].id,
         title_id: titles[:copywriter].id,
         address_id: addresses[:one_trick_hammonton].id
@@ -87,7 +91,7 @@ defmodule JobJawn.Listing.Job do
         url: "http://160over90.com/careers/?job_id=c436d12b-b418-4d0b-8197-e58118982f59",
         company_id: companies[:one_sixty_over_ninty].id,
         employment_type_id: employment_types[:full_time].id,
-        title_id: titles[:photo].id,
+        title_id: titles[:photographer].id,
         address_id: addresses[:one_sixty_over_ninty_philly].id
     }, []},
     {%{
@@ -119,7 +123,7 @@ defmodule JobJawn.Listing.Job do
         url: "http://160over90.com/careers/?job_id=28ba77d7-2011-46e2-aa72-36ee32fda4be",
         company_id: companies[:one_sixty_over_ninty].id,
         employment_type_id: employment_types[:full_time].id,
-        title_id: titles[:visual].id,
+        title_id: titles[:visual_designer].id,
         address_id: addresses[:one_sixty_over_ninty_philly].id
     }, []},
     {%{
@@ -191,7 +195,7 @@ defmodule JobJawn.Listing.Job do
         url: "http://aldianews.com/pages/internships/34585",
         company_id: companies[:al_dia].id,
         employment_type_id: employment_types[:internship].id,
-        title_id: titles[:visual].id,
+        title_id: titles[:visual_designer].id,
         address_id: addresses[:al_dia_philly].id
     }, []},
     {%{
@@ -216,15 +220,15 @@ defmodule JobJawn.Listing.Job do
     [{%{
         name: "GRAPHIC DESIGNER",
         url: "http://1trickpony.com/jobs/graphic-designer",
-        company_id: companies[:one_trick].id,
+        company_id: companies[:one_trick_pony].id,
         employment_type_id: employment_types[:full_time].id,
-        title_id: titles[:visual].id,
+        title_id: titles[:visual_designer].id,
         address_id: addresses[:one_trick_hammonton].id
     }, []},
     {%{
         name: "ACCOUNT COORDINATOR",
         url: "http://1trickpony.com/jbs/account-coordinator",
-        company_id: companies[:one_trick].id,
+        company_id: companies[:one_trick_pony].id,
         employment_type_id: employment_types[:full_time].id,
         title_id: titles[:crm].id,
         address_id: addresses[:one_trick_hammonton].id
@@ -232,7 +236,7 @@ defmodule JobJawn.Listing.Job do
     {%{
         name: "COPYWRITER",
         url: "http://1trickpony.com/jobs/copywriter",
-        company_id: companies[:one_trick].id,
+        company_id: companies[:one_trick_pony].id,
         employment_type_id: employment_types[:full_time].id,
         title_id: titles[:copywriter].id,
         address_id: addresses[:one_trick_hammonton].id
@@ -240,7 +244,7 @@ defmodule JobJawn.Listing.Job do
     {%{
         name: "SR. COPYWRITER / CONCEPT LEAD",
         url: "http://1trickpony.com/jobs/sr-copywriter-concept-lead",
-        company_id: companies[:one_trick].id,
+        company_id: companies[:one_trick_pony].id,
         employment_type_id: employment_types[:full_time].id,
         title_id: titles[:copywriter].id,
         address_id: addresses[:one_trick_hammonton].id
@@ -266,7 +270,7 @@ defmodule JobJawn.Listing.Job do
         url: "http://160over90.com/careers/?job_id=c436d12b-b418-4d0b-8197-e58118982f59",
         company_id: companies[:one_sixty_over_ninty].id,
         employment_type_id: employment_types[:full_time].id,
-        title_id: titles[:photo].id,
+        title_id: titles[:photographer].id,
         address_id: addresses[:one_sixty_over_ninty_philly].id
     }, []},
     {%{
@@ -298,7 +302,7 @@ defmodule JobJawn.Listing.Job do
         url: "http://160over90.com/careers/?job_id=28ba77d7-2011-46e2-aa72-36ee32fda4be",
         company_id: companies[:one_sixty_over_ninty].id,
         employment_type_id: employment_types[:full_time].id,
-        title_id: titles[:visual].id,
+        title_id: titles[:visual_designer].id,
         address_id: addresses[:one_sixty_over_ninty_philly].id
     }, []},
     {%{
@@ -370,7 +374,7 @@ defmodule JobJawn.Listing.Job do
         url: "http://aldianews.com/pages/internships/34585",
         company_id: companies[:al_dia].id,
         employment_type_id: employment_types[:internship].id,
-        title_id: titles[:visual].id,
+        title_id: titles[:visual_designer].id,
         address_id: addresses[:al_dia_philly].id
     }, []},
     {%{

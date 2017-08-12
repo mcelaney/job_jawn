@@ -3,19 +3,21 @@ defmodule JobJawn.Listing.Company do
   Organizations which may offer jobs
   """
   use Ecto.Schema
+  alias JobJawn.Listing.Industry
 
   schema "companies" do
     field :homepage, :string
     field :jobs_page, :string
     field :name, :string
     field :slug, Symbol
-    field :industry_id, :id
+
+    belongs_to :industry, Industry
 
     timestamps()
   end
 
   def fixtures_data(:test, industries) do
-    [{:one_trick, %{name: "1 Trick Pony",
+    [{:one_trick_pony, %{name: "1 Trick Pony",
                     slug: "one_trick_pony",
                     homepage: "http://1trickpony.com/",
                     jobs_page: "http://1trickpony.com/jobs",
@@ -33,7 +35,7 @@ defmodule JobJawn.Listing.Company do
   end
 
   def fixtures_data(:seed, industries) do
-    [{:one_trick, %{name: "1 Trick Pony",
+    [{:one_trick_pony, %{name: "1 Trick Pony",
                     slug: "one_trick_pony",
                     homepage: "http://1trickpony.com/",
                     jobs_page: "http://1trickpony.com/jobs",

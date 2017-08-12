@@ -30,14 +30,43 @@ defmodule JobJawn.ListingTest do
       job_count: Enum.count(jobs)]
   end
 
-  test "grouped_listings(:discipline) returns all jobs grouped by discipline",
-       %{disciplines: disciplines} do
+  test "grouped_listings/1 defaults to group jobs by company", %{companies: companies} do
+    jobs = Listing.grouped_listings()
+
+    companies
+    |> Map.keys
+    |> Enum.each(fn(company) ->
+         assert Map.has_key?(jobs, company)
+       end)
+  end
+
+  test "grouped_listings(:discipline) returns all jobs grouped by discipline", %{disciplines: disciplines} do
     jobs = Listing.grouped_listings(:discipline)
 
     disciplines
     |> Map.keys
     |> Enum.each(fn(discipline) ->
          assert Map.has_key?(jobs, discipline)
+       end)
+  end
+
+  test "grouped_listings(:title) returns all jobs grouped by title", %{titles: titles} do
+    jobs = Listing.grouped_listings(:title)
+
+    titles
+    |> Map.keys
+    |> Enum.each(fn(title) ->
+         assert Map.has_key?(jobs, title)
+       end)
+  end
+
+  test "grouped_listings(:industry) returns all jobs grouped by industry", %{industries: industries} do
+    jobs = Listing.grouped_listings(:industry)
+
+    industries
+    |> Map.keys
+    |> Enum.each(fn(industry) ->
+         assert Map.has_key?(jobs, industry)
        end)
   end
 end
