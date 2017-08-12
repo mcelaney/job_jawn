@@ -14,7 +14,10 @@ defmodule JobJawn.Listing do
   @spec grouped_listings(Job.job_grouping | any) :: Job.grouped_jobs
   def grouped_listings(grouping \\ :company) do
     Job
-    |> preload([:employment_type, :address, [title: [:discipline]], [company: [:industry]]])
+    |> preload([:employment_type,
+                :address,
+                [title: [:discipline]],
+                [company: [:industry]]])
     |> Repo.all
     |> jobs_grouping(grouping)
   end
@@ -30,6 +33,7 @@ defmodule JobJawn.Listing do
       end)
     end
   end
+
   @spec jobs_grouping(list(Job.t), Job.job_grouping) :: Job.grouped_jobs
   defp jobs_grouping(jobs, grouping) do
     case grouping do
