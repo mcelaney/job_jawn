@@ -4,10 +4,21 @@ defmodule JobJawn.Listing.Industry do
     finance
   """
   use Ecto.Schema
+
   schema "industries" do
     field :name, :string
-    field :slug, :string
+    field :slug, Symbol
 
     timestamps()
+  end
+
+  def fixtures_data(:test) do
+    [{:advertising, %{name: "Advertising", slug: "advertising"}},
+     {:media, %{name: "Media", slug: "media"}}]
+  end
+
+  def fixtures_data(:seed) do
+    [{:advertising, %{name: "Advertising", slug: "advertising"}},
+     {:media, %{name: "Media", slug: "media"}}]
   end
 end

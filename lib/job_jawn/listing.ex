@@ -2,35 +2,27 @@ defmodule JobJawn.Listing do
   @moduledoc """
   Responsible for management of jobs and related information
   """
-  use Ecto.Schema
-  import Ecto.Changeset
-  alias JobJawn.Listing.{
-        Address,
-        Company,
-        Discipline,
-        EmploymentType,
-        Industry,
-        Skill,
-        Title}
+  import Ecto.Query
+  alias JobJawn.Repo
+  alias JobJawn.Listing.Job
 
-  @address_required [:line_1, :line_2, :city, :state, :zip, :phone, :lat, :long]
-  @meta_required [:name, :slug]
-  @company_required [:name, :slug, :homepage, :jobs_page]
+  def grouped_listings(:discipline) do
+    Job
+    |> preload([:company, :employment_type, :address, title: [:discipline]])
+    |> Repo.all
+    |> Enum.group_by(&(&1.title.discipline.slug))
+    # |> Enum.reduce(%{}, )
+# Sort each group
+  end
 
-  def changeset(item, attrs) do
-    case item do
-      %Company{} ->
-        company
-        |> cast(attrs, @company_required)
-        |> validate_required(@company_required)
-      %Address{} ->
-        address
-        |> cast(attrs, @address_required)
-        |> validate_required(@address_required)
-      _ ->
-        job
-        |> cast(attrs, @meta_required)
-        |> validate_required(@meta_required)
+  def fetch_fixtures(data, module) do
+    unless Repo.aggregate(module, :count, :id) > 0 do
+      Enum.reduce(data, %{}, fn({key, params}, acc) ->
+        module
+        |> struct(params)
+        |> Repo.insert!()
+        |> (&Map.put(acc, key, &1)).()
+      end)
     end
   end
 end

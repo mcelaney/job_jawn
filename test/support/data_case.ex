@@ -22,6 +22,7 @@ defmodule JobJawn.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import JobJawn.DataCase
+      import JobJawn.Listing, only: [fetch_fixtures: 2]
     end
   end
 
