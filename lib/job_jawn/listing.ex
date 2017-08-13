@@ -11,9 +11,9 @@ defmodule JobJawn.Listing do
   @type fixtures_data :: list({item_slug, item_params})
   @type fixtures :: %{item_slug => list(Job.t)}
 
-  @spec grouped_listings(Job.job_grouping | any) :: Job.grouped_jobs
-  def grouped_listings(grouping \\ :company) do
-    Job
+  @spec fetch_grouped_listings(Job.job_grouping | any) :: Job.grouped_jobs
+  def fetch_grouped_listings(query, grouping \\ :company) do
+    query
     |> preload([:employment_type,
                 :address,
                 [title: [:discipline]],
@@ -21,6 +21,46 @@ defmodule JobJawn.Listing do
     |> Repo.all
     |> jobs_grouping(grouping)
   end
+
+  def filter(query, filter_map) do
+    query
+    |> filter(filter_map, :title)
+    |> filter(filter_map, :discipline)
+    |> filter(filter_map, :company)
+    |> filter(filter_map, :industry)
+  end
+
+  def filter(query, %{title: [_|_] = ids}, :title) do
+    where(query, [job], job.title_id in ^ids)
+  end
+
+  def filter(query, %{discipline: [_|_] = ids}, :discipline) do
+    query
+    |> join(:left, [job], title in assoc(job, :title))
+    |> where([_, title], title.discipline_id in ^ids)
+  end
+
+  def filter(query, %{company: [_|_] = ids}, :company) do
+    where(query, [job], job.company_id in ^ids)
+  end
+
+  def filter(query, %{industry: [_|_] = ids}, :industry) do
+    cond do
+      JobJawn.Listing.Job == query ->
+        query
+        |> join(:left, [job], company in assoc(job, :company))
+        |> where([_, company], company.industry_id in ^ids)
+      Enum.count(query.joins) == 0 ->
+        query
+        |> join(:left, [job], company in assoc(job, :company))
+        |> where([_, company], company.industry_id in ^ids)
+      Enum.count(query.joins) == 1 ->
+        query
+        |> join(:left, [job], company in assoc(job, :company))
+        |> where([_, _, company], company.industry_id in ^ids)
+    end
+  end
+  def filter(query, _, _), do: query
 
   @spec fetch_fixtures(fixtures_data, module) :: fixtures
   def fetch_fixtures(data, module) do

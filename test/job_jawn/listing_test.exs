@@ -30,8 +30,8 @@ defmodule JobJawn.ListingTest do
       job_count: Enum.count(jobs)]
   end
 
-  test "grouped_listings/1 defaults to group jobs by company", %{companies: companies} do
-    jobs = Listing.grouped_listings()
+  test "fetch_grouped_listings/2 defaults to group jobs by company", %{companies: companies} do
+    jobs = Listing.fetch_grouped_listings(Job)
 
     companies
     |> Map.keys
@@ -40,8 +40,8 @@ defmodule JobJawn.ListingTest do
        end)
   end
 
-  test "grouped_listings(:discipline) returns all jobs grouped by discipline", %{disciplines: disciplines} do
-    jobs = Listing.grouped_listings(:discipline)
+  test "fetch_grouped_listings(Job, :discipline) returns all jobs grouped by discipline", %{disciplines: disciplines} do
+    jobs = Listing.fetch_grouped_listings(Job, :discipline)
 
     disciplines
     |> Map.keys
@@ -50,8 +50,8 @@ defmodule JobJawn.ListingTest do
        end)
   end
 
-  test "grouped_listings(:title) returns all jobs grouped by title", %{titles: titles} do
-    jobs = Listing.grouped_listings(:title)
+  test "fetch_grouped_listings(Job, :title) returns all jobs grouped by title", %{titles: titles} do
+    jobs = Listing.fetch_grouped_listings(Job, :title)
 
     titles
     |> Map.keys
@@ -60,8 +60,8 @@ defmodule JobJawn.ListingTest do
        end)
   end
 
-  test "grouped_listings(:industry) returns all jobs grouped by industry", %{industries: industries} do
-    jobs = Listing.grouped_listings(:industry)
+  test "fetch_grouped_listings(Job, :industry) returns all jobs grouped by industry", %{industries: industries} do
+    jobs = Listing.fetch_grouped_listings(Job, :industry)
 
     industries
     |> Map.keys
@@ -69,4 +69,44 @@ defmodule JobJawn.ListingTest do
          assert Map.has_key?(jobs, industry)
        end)
   end
+
+  test "filter/1 will filter jobs by company", %{companies: companies} do
+    filter_map = %{company: [companies[:one_trick_pony].id]}
+    assert filter_meh(filter_map) |> Enum.count == 4
+  end
+
+  test "filter/1 will filter jobs by discipline", %{disciplines: disciplines} do
+    filter_map = %{discipline: [disciplines[:design].id]}
+    assert filter_meh(filter_map) |> Enum.count == 3
+  end
+
+  test "filter/1 will filter jobs by title", %{titles: titles} do
+    filter_map = %{title: [titles[:copywriter].id]}
+    assert filter_meh(filter_map) |> Enum.count == 5
+  end
+
+  test "filter/1 will filter jobs by industry", %{industries: industries} do
+    filter_map = %{industry: [industries[:media].id]}
+    assert filter_meh(filter_map) |> Enum.count == 8
+  end
+
+  test "filter/1 will filter by multiple facets",
+       %{companies: companies, disciplines: disciplines, titles: titles, industries: industries} do
+    filter_map = %{company: [companies[:one_trick_pony].id], title: [titles[:copywriter].id]}
+    assert filter_meh(filter_map) |> Enum.count == 2
+
+    filter_map = %{company: [companies[:al_dia].id, companies[:one_trick_pony].id], title: [titles[:copywriter].id]}
+    assert filter_meh(filter_map) |> Enum.count == 3
+
+    filter_map = %{company: [companies[:al_dia].id, companies[:one_trick_pony].id], discipline: [disciplines[:content].id]}
+    assert filter_meh(filter_map) |> Enum.count == 6
+
+    filter_map = %{industry: [industries[:advertising].id], discipline: [disciplines[:sales].id]}
+    assert filter_meh(filter_map) |> Enum.count == 3
+
+    filter_map = %{industry: [industries[:advertising].id], title: [titles[:photographer].id]}
+    assert filter_meh(filter_map) |> Enum.count == 1
+  end
+
+  def filter_meh(filter_map), do: Job |> Listing.filter(filter_map) |> Repo.all
 end
