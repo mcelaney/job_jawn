@@ -1,5 +1,5 @@
 defmodule JobJawnWeb.DisciplineView do
-  use JSONAPI.View
+  use JSONAPI.View, namespace: "/api"
   alias JobJawnWeb.DisciplineView
 
   def render("index.json", %{disciplines: disciplines, conn: conn, params: params}) do
@@ -12,5 +12,5 @@ defmodule JobJawnWeb.DisciplineView do
 
   def fields(), do: [:name, :slug]
   def relationships(), do: [jobs: JobJawnWeb.JobView, titles: JobJawnWeb.TitleView]
-  def type(), do: "discipline"
+  def type(), do: "disciplines"
 end

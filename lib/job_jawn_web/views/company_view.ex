@@ -1,5 +1,5 @@
 defmodule JobJawnWeb.CompanyView do
-  use JSONAPI.View
+  use JSONAPI.View, namespace: "/api"
   alias JobJawnWeb.CompanyView
   alias JobJawnWeb.JobView
 
@@ -14,5 +14,5 @@ defmodule JobJawnWeb.CompanyView do
   def fields(), do: [:homepage, :jobs_page, :name, :slug]
   def relationships(), do: [addresses: JobJawnWeb.AddressView, jobs: JobJawnWeb.JobView]
   def includes(), do: [industry: {JobJawnWeb.IndustryView, :include}]
-  def type(), do: "company"
+  def type(), do: "companies"
 end

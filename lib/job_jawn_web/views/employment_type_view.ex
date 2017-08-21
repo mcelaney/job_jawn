@@ -1,5 +1,5 @@
 defmodule JobJawnWeb.EmploymentTypeView do
-  use JSONAPI.View
+  use JSONAPI.View, namespace: "/api"
   alias JobJawnWeb.EmploymentTypeView
   alias JobJawnWeb.JobView
 
@@ -13,5 +13,5 @@ defmodule JobJawnWeb.EmploymentTypeView do
 
   def fields(), do: [:name, :slug]
   def relationships(), do: [jobs: JobJawnWeb.JobView]
-  def type(), do: "employment_type"
+  def type(), do: "employment_types"
 end

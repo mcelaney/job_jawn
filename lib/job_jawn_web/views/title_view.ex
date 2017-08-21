@@ -1,5 +1,5 @@
 defmodule JobJawnWeb.TitleView do
-  use JSONAPI.View
+  use JSONAPI.View, namespace: "/api"
   alias JobJawnWeb.TitleView
   alias JobJawnWeb.JobView
   alias JobJawnWeb.DisciplineView
@@ -15,5 +15,5 @@ defmodule JobJawnWeb.TitleView do
   def fields(), do: [:name, :slug]
   def relationships(), do: [jobs: JobView]
   def includes(), do: [discipline: {DisciplineView, :include}]
-  def type(), do: "title"
+  def type(), do: "titles"
 end

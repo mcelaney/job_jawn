@@ -1,5 +1,5 @@
 defmodule JobJawnWeb.AddressView do
-  use JSONAPI.View
+  use JSONAPI.View, namespace: "/api"
   alias JobJawnWeb.AddressView
 
   def render("index.json", %{addresses: addresses, conn: conn, params: params}) do
@@ -12,5 +12,5 @@ defmodule JobJawnWeb.AddressView do
 
   def fields(), do: [:city, :lat, :line_1, :line_2, :long, :phone, :state, :zip]
   def includes(), do: [company: {JobJawnWeb.CompanyView, :include}]
-  def type(), do: "address"
+  def type(), do: "addresses"
 end

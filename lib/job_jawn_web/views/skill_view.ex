@@ -1,5 +1,5 @@
 defmodule JobJawnWeb.SkillView do
-  use JSONAPI.View
+  use JSONAPI.View, namespace: "/api"
   alias JobJawnWeb.SkillView
 
   def render("index.json", %{skills: skills, conn: conn, params: params}) do
@@ -11,5 +11,5 @@ defmodule JobJawnWeb.SkillView do
   end
 
   def fields(), do: [:name, :slug]
-  def type(), do: "skill"
+  def type(), do: "skills"
 end
