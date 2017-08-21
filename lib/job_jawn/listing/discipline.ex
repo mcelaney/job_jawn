@@ -3,10 +3,13 @@ defmodule JobJawn.Listing.Discipline do
   The discipline of a title - Design, Content, Development, etc
   """
   use Ecto.Schema
+  alias JobJawn.Listing.Title
 
   schema "disciplines" do
     field :name, :string
     field :slug, Symbol
+
+    has_many :titles, Title
 
     timestamps()
   end

@@ -4,12 +4,14 @@ defmodule JobJawn.Listing.Title do
   """
   use Ecto.Schema
   alias JobJawn.Listing.Discipline
+  alias JobJawn.Listing.Job
 
   schema "titles" do
     field :name, :string
     field :slug, Symbol
 
     belongs_to :discipline, Discipline
+    has_many :jobs, Job
 
     timestamps()
   end

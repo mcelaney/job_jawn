@@ -3,7 +3,9 @@ defmodule JobJawn.Listing.Company do
   Organizations which may offer jobs
   """
   use Ecto.Schema
+  alias JobJawn.Listing.Address
   alias JobJawn.Listing.Industry
+  alias JobJawn.Listing.Job
 
   schema "companies" do
     field :homepage, :string
@@ -12,6 +14,8 @@ defmodule JobJawn.Listing.Company do
     field :slug, Symbol
 
     belongs_to :industry, Industry
+    has_many :addresses, Address
+    has_many :jobs, Job
 
     timestamps()
   end

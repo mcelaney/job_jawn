@@ -3,6 +3,7 @@ defmodule JobJawn.Listing.Address do
   A physical location for a job
   """
   use Ecto.Schema
+  alias JobJawn.Listing.Company
 
   schema "addresses" do
     field :city, :string
@@ -13,7 +14,8 @@ defmodule JobJawn.Listing.Address do
     field :phone, :string
     field :state, :string
     field :zip, :string
-    field :company_id, :id
+
+    belongs_to :company, Company
 
     timestamps()
   end

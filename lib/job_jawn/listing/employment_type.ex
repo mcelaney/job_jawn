@@ -3,10 +3,13 @@ defmodule JobJawn.Listing.EmploymentType do
   Type of job this is - Full time, intership, etc
   """
   use Ecto.Schema
+  alias JobJawn.Listing.Job
 
   schema "employment_types" do
     field :name, :string
     field :slug, Symbol
+
+    has_many :jobs, Job
 
     timestamps()
   end

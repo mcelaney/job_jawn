@@ -23,6 +23,7 @@ defmodule JobJawnWeb do
       import Plug.Conn
       import JobJawnWeb.Router.Helpers
       import JobJawnWeb.Gettext
+      alias JobJawn.Repo
     end
   end
 
