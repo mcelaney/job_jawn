@@ -4,6 +4,7 @@ defmodule JobJawn.Listing.Company do
   """
   use Ecto.Schema
   alias JobJawn.Listing.Industry
+  alias JobJawn.Listing.Address
 
   schema "companies" do
     field :homepage, :string
@@ -12,6 +13,7 @@ defmodule JobJawn.Listing.Company do
     field :slug, Symbol
 
     belongs_to :industry, Industry
+    has_many :addresses, Address
 
     timestamps()
   end
